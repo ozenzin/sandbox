@@ -1,25 +1,41 @@
 package oz;
 
+import java.time.Duration;
+import java.time.Instant;
+
 public class Permutations {
 
     private static int counter;
+    private static int swaps;
 
     public static void main(String[] args) {
 //        permutateFour(args[0].toCharArray());
-        permutateRecursively(args[0].toCharArray(), args[0].length());
+        Instant start = Instant.now();
+        baeldungPermutationRecursively(args[0].toCharArray(), args[0].length());
+        long millis = Duration.between(start, Instant.now()).toMillis();
+        System.out.printf("%n%d ms %5d swaps", millis, swaps);
+        swaps = 0; counter = 0;
+        start = Instant.now();
+        permutateFour(args[0].toCharArray());
+        millis = Duration.between(start, Instant.now()).toMillis();
+        System.out.printf("%n%d ms %5d swaps", millis, swaps);
+
+//        swaps = 0; counter = 0;
+//        yevgenYampolskiyPermutation(args[0].toCharArray(), 0);
+//        System.out.printf("%n%5d swaps", swaps);
+//        swaps = 0; counter = 0;
+//        permutateMyWay(args[0].toCharArray(), 0);
+//        System.out.printf("%n%5d swaps", swaps);
     }
 
-    private static void permutateMyWay(char[] numbers) {
-        System.out.printf("%n%s%n", new String(numbers));
-        for (int i = 0; i < numbers.length; i++) {
-            for (int j = i+1; j < numbers.length; j++) {
-                if (numbers[i] != numbers[j]) {
-                    swap(numbers, i, j);
-                    System.out.printf("%n%d. %s", ++counter, new String(numbers));
-                    swap(numbers, i, j);//put it back
-                }
-            }
+    private static void permutateMyWay(char[] numbers, int k) {
+        for (int i = k; i < numbers.length; i++) {
+            swap(numbers, i, k);
+            permutateMyWay(numbers, k + 1);
+            swap(numbers, i, k);//put it back
         }
+        if (k + 1 == numbers.length)
+            System.out.printf("%n%2d. %s", ++counter, new String(numbers));
     }
 
     private static void permutateFour(char[] numbers) {
@@ -31,22 +47,38 @@ public class Permutations {
                                 new String(new char[] {numbers[a], numbers[b], numbers[c], numbers[d]}));
     }
 
-    private static void permutateRecursively(char[] numbers, int subset) {
-        if (subset == 1)
+    /*
+        https://www.baeldung.com/java-array-permutations
+     */
+    private static void baeldungPermutationRecursively(char[] numbers, int setToSwap) {
+        if (setToSwap < 2)
             System.out.printf("%n%2d. %s", ++counter, new String(numbers));
         else {
-            for (int i = 0; i < subset - 1; i++) {
-                permutateRecursively(numbers, subset - 1);
-                if ((subset & 1) == 0)
-                    swap(numbers, i, subset -1);
+            for (int i = 0; i < setToSwap - 1; i++) {
+                baeldungPermutationRecursively(numbers, setToSwap - 1);
+                if ((setToSwap & 1) == 0)
+                    swap(numbers, i, setToSwap -1);
                 else
-                    swap(numbers, 0, subset -1);
+                    swap(numbers, 0, setToSwap -1);
             }
-            permutateRecursively(numbers, subset -1);
+            baeldungPermutationRecursively(numbers, setToSwap -1);
         }
     }
 
+    private static void yevgenYampolskiyPermutation(char[] numbers, int k) {
+        for (int i = k; i < numbers.length; i++) {
+            swap(numbers, i, k);
+            yevgenYampolskiyPermutation(numbers, k + 1);
+            swap(numbers, i, k);
+        }
+        if (k == numbers.length -1)
+            System.out.printf("%n%2d. %s", ++counter, new String(numbers));
+    }
+
+
+
     public static void swap(char[] chars, int from, int to) {
         char tmp = chars[from]; chars[from] = chars[to]; chars[to] = tmp;
+        ++swaps;
     }
 }
