@@ -11,7 +11,7 @@ public class SqRoot {
         System.out.printf("√%.5f = %.5f%n", d, squareRoot(d));
     }
 
-    static double squareRoot(final double d) {
+    public static double squareRoot(final double d) {
         double start, end;
 
         if (d < 1.0) {
@@ -26,14 +26,14 @@ public class SqRoot {
 
         while (compareDoubles(start, end) != D_ORDER.EQUAL) {
             double half = start + (end - start) * .5;
-            switch (compareDoubles(half*half, d)) {
-                case LESS_THAN:
+            switch (Double.compare(half*half, d)) {
+                case -1:
                     start = half;
                     break;
-                case GREATER_THAN:
+                case 1:
                     end = half;
                     break;
-                case EQUAL:
+                case 0:
                     return half;
             }
         }
@@ -42,7 +42,7 @@ public class SqRoot {
 
     enum D_ORDER {LESS_THAN, EQUAL, GREATER_THAN};
 
-    static D_ORDER compareDoubles(double d1, double d2) {
+    public static D_ORDER compareDoubles(double d1, double d2) {
         final double EPS = .0000001;
         double diff = (d1 - d2) / Math.max(Math.abs(d1), Math.abs(d2));
         return diff < -EPS ? D_ORDER.LESS_THAN : (diff > EPS ? D_ORDER.GREATER_THAN : D_ORDER.EQUAL);
