@@ -20,22 +20,9 @@ public class Permutations {
         millis = Duration.between(start, Instant.now()).toMillis();
         System.out.printf("%n%d ms %5d swaps", millis, swaps);
 
-//        swaps = 0; counter = 0;
-//        yevgenYampolskiyPermutation(args[0].toCharArray(), 0);
-//        System.out.printf("%n%5d swaps", swaps);
-//        swaps = 0; counter = 0;
-//        permutateMyWay(args[0].toCharArray(), 0);
-//        System.out.printf("%n%5d swaps", swaps);
-    }
-
-    private static void permutateMyWay(char[] numbers, int k) {
-        for (int i = k; i < numbers.length; i++) {
-            swap(numbers, i, k);
-            permutateMyWay(numbers, k + 1);
-            swap(numbers, i, k);//put it back
-        }
-        if (k + 1 == numbers.length)
-            System.out.printf("%n%2d. %s", ++counter, new String(numbers));
+        swaps = 0; counter = 0;
+        yevgenYampolskiyPermutation(args[0].toCharArray(), 0);
+        System.out.printf("%n%5d swaps", swaps);
     }
 
     private static void permutateFour(char[] numbers) {
@@ -65,6 +52,10 @@ public class Permutations {
         }
     }
 
+    /*
+    https://stackoverflow.com/questions/2920315/permutation-of-array/14444037#14444037
+    Analisys shows it relies on way too many swaps, compared to Heap's algo (found on baeldung)
+     */
     private static void yevgenYampolskiyPermutation(char[] numbers, int k) {
         for (int i = k; i < numbers.length; i++) {
             swap(numbers, i, k);
