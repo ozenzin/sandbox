@@ -45,7 +45,7 @@ public class MedianSortedArrays {
             return median(nums1, s1, len1);
         }
 
-        boolean odd = ((len1 + len2) & 1) > 0;
+        boolean isOdd = ((len1 + len2) & 1) > 0;
         int med = (len1 + len2) >>1;
         int minNums1 = Math.max(0, (len1 - len2) >> 1);
         int maxNums1 = Math.min(len1, med);
@@ -63,14 +63,14 @@ public class MedianSortedArrays {
             else if (nums1Upper > nums2Lower)
                 maxNums1 = --exactNums1;
             else {
-                if (odd)
+                if (isOdd)
                     return Math.max(nums1Upper, nums2Upper);
                 else
                     return (nums1Upper + nums2Upper) / 2.0;
             }
         }
 
-        if (odd)
+        if (isOdd)
             return Math.max(minNums1 > 0 ? nums1[minNums1 -1] : Integer.MIN_VALUE, (med - 1 - minNums1) >= 0 ? nums2[med - 1 - minNums1] : Integer.MIN_VALUE);
         else
             return (nums1[minNums1 -1] + nums2[med - 1 - minNums1]) / 2.0;

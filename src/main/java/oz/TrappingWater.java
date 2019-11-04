@@ -19,6 +19,7 @@ public class TrappingWater {
 
         int highMark = 0, candidateWater = 0, water = candidateWater;
 
+        //left-to-right, catching pools like i_I
         for (int i = 0, n = histogram.length; i < n; i++) {
             int delta = highMark - histogram[i];
             if (delta > 0) {
@@ -32,6 +33,7 @@ public class TrappingWater {
 
         highMark = 0;
         candidateWater = 0;
+        //now going right-to-left catching pools like I_j
         for (int i = histogram.length; i-- > 0; ) {
             int delta = highMark - histogram[i];
             if (delta < 0) {
@@ -50,6 +52,7 @@ public class TrappingWater {
 
         int l2rHighMark = 0, l2rCandidateWater = 0, r2lHighMark = 0, r2lCandidateWater = 0, water = 0, numberOfPods = 0;
 
+        //moving simultaneously left-too-right and right-to-left
         for (int i = 0, k = histogram.length -1; i < histogram.length; i++, k--) {
             int l2rDelta = l2rHighMark - histogram[i];
             if (l2rDelta > 0) {

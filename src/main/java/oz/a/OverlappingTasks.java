@@ -16,7 +16,7 @@ public class OverlappingTasks {
     public static void main(String[] args) {
         int[][] tasks = {{7, 10}, {2,4}};
 
-        System.out.printf("Of tasks %d are overlapping", numberOfSlots(tasks));
+        System.out.printf("There are %d overlaps", numberOfSlots(tasks));
     }
 
     static int numberOfSlots(int[][] tasks) {

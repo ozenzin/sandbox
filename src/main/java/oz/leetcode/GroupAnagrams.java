@@ -33,6 +33,8 @@ public class GroupAnagrams {
     }
 
     private static List<List<String>> groupAnagrams(String[] args) {
-        return new ArrayList<>(Arrays.stream(args).collect(Collectors.groupingBy(s -> s.chars().sorted().mapToObj(String::valueOf).collect(joining()))).values());
+        return new ArrayList<>(Arrays.stream(args).collect(
+                Collectors.groupingBy(s -> s.chars().sorted().boxed().collect(toList()))
+        ).values());
     }
 }
