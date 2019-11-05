@@ -1,21 +1,19 @@
 package oz.tree;
 
-import java.util.Arrays;
-
 public class FloorCeiling {
 
     private static Double floor;
     private static Double ceiling;
 
     public static void main(String[] args) {
-        Double dano = Double.valueOf(args[0]);
-        Double floor = findFloor(Trees.bst, dano);
-        Double ceiling = findCeiling(Trees.bst, dano);
+        Double given = Double.valueOf(args[0]);
+        Double floor = findFloor(Trees.bst, given);
+        Double ceiling = findCeiling(Trees.bst, given);
 
-        System.out.printf(" %s < %s < %s %n", floor, dano, ceiling);
-        System.out.printf(" %s < %s%n", ceilOf(dano, Trees.bst), dano);
-        Double[] beforeAtfer = beforeAfter(dano, Trees.bst, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
-        System.out.printf(" %s < %s < %s%n", beforeAtfer[0], dano, beforeAtfer[1]);
+        System.out.printf(" %s < %s < %s %n", floor, given, ceiling);
+        System.out.printf(" %s < %s < %s %n", maxTreeNodeLessThanGiven(given, Trees.bst), given, minTreeNodeGreaterThanGiven(given, Trees.bst));
+        Double[] beforeAtfer = beforeAfter(given, Trees.bst, Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY);
+        System.out.printf(" %s < %s < %s%n", beforeAtfer[0], given, beforeAtfer[1]);
     }
 
     private static Double findFloor(Trees.TreeNode<Double> node, Double d) {
@@ -44,13 +42,23 @@ public class FloorCeiling {
         }
     }
 
-    private static Double ceilOf(Double d, Trees.TreeNode<Double> in) {
+    private static Double minTreeNodeGreaterThanGiven(Double d, Trees.TreeNode<Double> tn) {
+        if (tn == null)
+            return Double.POSITIVE_INFINITY;
+
+        else if (Double.compare(d, tn.data) > 0)
+            return minTreeNodeGreaterThanGiven(d, tn.right);
+        else
+            return Math.min(tn.data, minTreeNodeGreaterThanGiven(d, tn.left));
+    }
+
+    private static Double maxTreeNodeLessThanGiven(Double d, Trees.TreeNode<Double> in) {
         if (in == null)
             return Double.NEGATIVE_INFINITY;
-        else if (d > in.data)
-            return Math.max(in.data, ceilOf(d, in.right));
+        else if (Double.compare(d, in.data) < 0)
+            return maxTreeNodeLessThanGiven(d, in.left);
         else
-            return ceilOf(d, in.left);
+            return Math.max(in.data, maxTreeNodeLessThanGiven(d, in.right));
     }
 
     private static Double[] beforeAfter(Double d, Trees.TreeNode<Double> in, Double maxMin, Double minMax) {

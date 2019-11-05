@@ -7,14 +7,29 @@ public class VarifyBST {
     private static Double watermark = Double.NEGATIVE_INFINITY;
 
     public static void main(String[] args) {
-        Trees.inOrder(Trees.bst);
-        System.out.println();
+//        Trees.inOrder(Trees.bst);
+//        System.out.println();
+//
+//        System.out.printf("BST with watermark: %s %n",
+//                verifyBST(Trees.bst));
+//
+//        System.out.printf("Recursive BST: %s %n",
+//                verifyBSTRecursive(Trees.bst, Double::compareTo, Double.POSITIVE_INFINITY));
+        Trees.TreeNode<Integer> bst = Trees.bstOfInt;
+        Trees.inOrder(bst);
+        System.out.printf("%nis wellformed: %s%n", verifyBSThelper(bst, Integer.MIN_VALUE, Integer.MAX_VALUE));
 
-        System.out.printf("BST with watermark: %s %n",
-                verifyBST(Trees.bst));
+        bst.left.right.data = 10;
+        Trees.inOrder(bst);
+        System.out.printf("%nis wellformed: %s%n", verifyBSThelper(bst, Integer.MIN_VALUE, Integer.MAX_VALUE));
+    }
 
-        System.out.printf("Recursive BST: %s %n",
-                verifyBSTRecursive(Trees.bst, Double::compareTo, Double.POSITIVE_INFINITY));
+    private static boolean verifyBSThelper(Trees.TreeNode<Integer> node, int minValue, int maxValue) {
+        if (node == null)
+            return true;
+        if (node.data < minValue || node.data > maxValue)
+            return false;
+        return verifyBSThelper(node.left, minValue, node.data) && verifyBSThelper(node.right, node.data, maxValue);
     }
 
     private static boolean verifyBSTdetailed(Trees.TreeNode<Double> bst) {

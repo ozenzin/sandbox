@@ -32,11 +32,13 @@ public class Main {
     };
 
     public static void main(String[] args) {
-//        int[] nums = Arrays.stream(args).mapToInt(Integer::valueOf).toArray();
+        int[] nums = Arrays.stream(args).mapToInt(Integer::valueOf).distinct().toArray();
+        System.out.printf("%n%s distinct: %s%n", Arrays.toString(args), Arrays.toString(nums));
 //
 //        System.out.printf("Missing %s amongst %s%n", findMissing(nums), Arrays.asList(args));
 //
 //        List<String> blocks = Arrays.asList("red", "2", "blue", "4");
+        /*
         ThreadLocalRandom random = ThreadLocalRandom.current();
         for (int n = 1000; n-- > 0;) {
             random.doubles(1000, 5, 300).forEach(d ->
@@ -49,6 +51,7 @@ public class Main {
         }
 
         window.values().stream().mapToDouble(DataPoint::getResponse).average();
+         */
     }
 
     private static double collectorsAveragingDouble(List<DataPoint> incomingData) {

@@ -45,7 +45,9 @@ public class FromPostOrder {
 
         Node root = new Node(postOrder[rootIndx]);
         int nextRootIndx = rootIndx;
-        while (nextRootIndx > leftMost && postOrder[nextRootIndx -1] > postOrder[rootIndx])
+        //looking for left subtree root (left child of current root)
+        while (nextRootIndx > leftMost &&
+                postOrder[nextRootIndx -1] > postOrder[rootIndx])//first right subtree (greater than root), than - left subtree
             nextRootIndx--;
 
         root.right = fromPostOrder(postOrder, nextRootIndx, rootIndx -1);
