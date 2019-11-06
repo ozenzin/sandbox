@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.Arrays;
 
 /**
+ * Heap's algorithm!!
  * Do not call for more than 10 elements
  *
  * https://www.baeldung.com/wp-content/uploads/2019/01/Screenshot-2018-12-30-at-09.40.23-e1546159288775.png
