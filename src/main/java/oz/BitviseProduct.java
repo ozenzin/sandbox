@@ -3,8 +3,8 @@ package oz;
 public class BitviseProduct {
 
     public static void main(String[] args) {
-        long l1 = Long.valueOf(args[0]);
-        long l2 = Long.valueOf(args[1]);
+        long l1 = Long.parseLong(args[0]);
+        long l2 = Long.parseLong(args[1]);
 
         System.out.printf("%d * %d = %d", l1, l2, product(l1, l2));
     }
