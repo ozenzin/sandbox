@@ -2,27 +2,38 @@ package oz;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Arrays;
 
+/**
+ * Do not call for more than 10 elements
+ *
+ * https://www.baeldung.com/wp-content/uploads/2019/01/Screenshot-2018-12-30-at-09.40.23-e1546159288775.png
+ */
 public class Permutations {
 
     private static int counter;
     private static int swaps;
 
     public static void main(String[] args) {
-//        permutateFour(args[0].toCharArray());
-        Instant start = Instant.now();
-        baeldungPermutationRecursively(args[0].toCharArray(), args[0].length());
-        long millis = Duration.between(start, Instant.now()).toMillis();
-        System.out.printf("%n%d ms %5d swaps", millis, swaps);
-        swaps = 0; counter = 0;
-        start = Instant.now();
-        permutateFour(args[0].toCharArray());
-        millis = Duration.between(start, Instant.now()).toMillis();
-        System.out.printf("%n%d ms %5d swaps", millis, swaps);
+        if (args.length > 0 && args[0].length() > 10) {
+            args[0] = new String(Arrays.copyOfRange(args[0].toCharArray(), 0, 10));
+            System.out.printf("%nDo not call for more than 10 elements!!! Too much time to calculate!%nTaking first 10: %s", args[0]);
+        }
 
-        swaps = 0; counter = 0;
-        yevgenYampolskiyPermutation(args[0].toCharArray(), 0);
-        System.out.printf("%n%5d swaps", swaps);
+//        permutateFour(args[0].toCharArray());
+//        Instant start = Instant.now();
+        baeldungPermutationRecursively(args[0].toCharArray(), args[0].length());
+//        long millis = Duration.between(start, Instant.now()).toMillis();
+//        System.out.printf("%n%d ms %5d swaps", millis, swaps);
+//        swaps = 0; counter = 0;
+//        start = Instant.now();
+//        permutateFour(args[0].toCharArray());
+//        millis = Duration.between(start, Instant.now()).toMillis();
+//        System.out.printf("%n%d ms %5d swaps", millis, swaps);
+
+//        swaps = 0; counter = 0;
+//        yevgenYampolskiyPermutation(args[0].toCharArray(), 0);
+//        System.out.printf("%n%5d swaps", swaps);
     }
 
     private static void permutateFour(char[] numbers) {
@@ -35,10 +46,11 @@ public class Permutations {
     }
 
     /*
+    Heap's algorithm!
         https://www.baeldung.com/java-array-permutations
      */
     private static void baeldungPermutationRecursively(char[] numbers, int setToSwap) {
-        if (setToSwap < 2)
+        if (setToSwap < 2)//nothing to shuffle
             System.out.printf("%n%2d. %s", ++counter, new String(numbers));
         else {
             for (int i = 0; i < setToSwap - 1; i++) {

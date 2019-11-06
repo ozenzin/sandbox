@@ -36,9 +36,11 @@ public class Combinations {
         }
 
         int remaining = k - partial.size();
-        for (int i = offset; i < nums.length && i <= nums.length -remaining; ++i) {
-            partial.add(nums[i]);
-            directedCombinations(nums, k, i + 1, partial, result);
+        while (offset < nums.length
+                && offset + remaining <= nums.length) //this check is optional, but helps to stop add/remove once there's not enough elements left to fill in K
+        {
+            partial.add(nums[offset]);
+            directedCombinations(nums, k, ++offset, partial, result);
             partial.remove(partial.size() -1);
         }
     }
