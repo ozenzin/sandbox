@@ -11,6 +11,16 @@ import java.util.stream.Stream;
  */
 public class ParentChildren {
 
+    /*
+    An example input:
+    2,3 2,4 7,5 9,4
+    Output:
+
+    For relations [2,3, 2,4, 7,5, 9,4]
+    0-parent people: [2, 7, 9]
+    1-parent people: [3, 5]
+
+     */
     public static void main(String[] args) {
         int[][] relations =
         Stream.of(args).map(s -> {
