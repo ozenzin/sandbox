@@ -18,6 +18,8 @@ import static java.util.stream.Collectors.toList;
  */
 public class AvailableDates {
 
+    //an example schedule of workdays per clinician: 
+    //keys are clinicianId:Integer, values - dayStart:LocalDateTime, dayEnd:LocalDateTime
     private static Map<Integer, List<List<LocalDateTime>>> schedule = new HashMap<>();
 
     static {
@@ -43,7 +45,7 @@ public class AvailableDates {
         ).collect(toList()));
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {//example input: >java oz.AvailableDates 1999-01-01T10:15:30 2001-10-13T10:17:30
         List<LocalDateTime> appointments = Arrays.stream(args).map(LocalDateTime::parse).collect(toList());
 
         System.out.printf("Out of %n%s%n", schedule);
