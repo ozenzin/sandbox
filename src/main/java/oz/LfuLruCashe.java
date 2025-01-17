@@ -47,17 +47,14 @@ public class LfuLruCashe<K, V> {
         Map<Integer, List<Map.Entry<K, Integer>>> grouped = fqs.entrySet().stream().collect(groupingBy(Map.Entry<K, Integer>::getValue));
         List<Map.Entry<K, Integer>> leastFrequent = grouped.
                         entrySet().stream().min(Comparator.comparingInt(Map.Entry::getKey)).map(Map.Entry::getValue).get();
-        K key = leastFrequent.get(0).getKey();
+        K key2remove = leastFrequent.get(0).getKey();
         if (leastFrequent.size() > 1) {
             List<K> lfuKeys = leastFrequent.stream().map(Map.Entry::getKey).collect(toList());
-            for (K lruKey : cache.keySet()) {
-                if (lfuKeys.contains(lruKey)) {
-                    key = lruKey;
-                }
-            }
+            List<K> lruKeys = cache.entrySet().stream().map(Map.Entry::getKey).collect(toList());
+//            key2remove = lruKeys.stream().findFirst(lfuKeys.contains);
         }
-        fqs.remove(key);
-        cache.remove(key);
+        fqs.remove(key2remove);
+        cache.remove(key2remove);
     }
 
 }

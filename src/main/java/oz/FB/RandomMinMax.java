@@ -7,7 +7,7 @@ import java.util.*;
  * <pre>
  *     boolean isEmpty()
  *
- *     int get() //removes and returns next integer from the inner array picking it from either end randomly
+ *     int get() //returns and removes next integer from the inner array picking it from either end randomly
  *
  * </pre>
  *
@@ -18,7 +18,7 @@ public class RandomMinMax {
 
     static class Container {
         int[] sorted;
-        int left = 0, right = 0;
+        int left, right = 0;
         private Random randomizer;
 
         Container(int[] sorted) {
@@ -58,7 +58,7 @@ public class RandomMinMax {
                 right.add(n);
         }
 
-        if (!c.isEmpty()) {//defining moment. Only 3 possibilities: 2 from left, 2 from right, 1 left + 1 right
+        if (!c.isEmpty()) {//defining moment. Only 3 possibilities: 2 from the left, 2 from the right, or (1 from the left and 1 from the right)
             Integer n = c.get();
             if (n < left.element()) {//2 from right: max found! queue right is confirmed! we'd only do right.addLast (no right.addFirst anymore)
                 right.addFirst(left.remove());

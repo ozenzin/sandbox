@@ -50,7 +50,7 @@ public class AvailableDates {
 
         System.out.printf("Out of %n%s%n", schedule);
         appointments.forEach(appt ->
-                System.out.printf("Folowing clinicians are availabe for 45min appointment starting at %s: %s%n", appt, getAvailable(appt))
+                System.out.printf("Following clinicians are available for 45min appointment starting at %s: %s%n", appt, getAvailable(appt))
         );
     }
 

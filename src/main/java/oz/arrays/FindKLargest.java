@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Stream;
 
 /**
- * Given unsorted array of N elements find K-larget in Log (N) time.
+ * Given unsorted array of N elements find K-largest in Log (N) time.
  */
 public class FindKLargest {
 
@@ -16,7 +16,10 @@ public class FindKLargest {
         args = Arrays.copyOfRange(args, 1, args.length);
         int[] nums = Stream.of(args).mapToInt(Integer::valueOf).toArray();
 
-        System.out.printf("%nThe %dth largest element in %s is %d%n", K, Arrays.toString(nums), findKLargestIn(K, nums));
+        if (K > nums.length)
+            System.out.printf("%nOnly %d elements, while asking for %dth largest! Give more numbers, please.", nums.length, K);
+        else
+            System.out.printf("%nThe %dth largest element in %s is %d%n", K, Arrays.toString(nums), findKLargestIn(K, nums));
     }
 
     private static int findKLargestIn(int K, int[] nums) {
