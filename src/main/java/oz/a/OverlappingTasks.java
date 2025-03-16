@@ -58,6 +58,7 @@ public class OverlappingTasks {
         int maxSlots = 0;
         if (tasks == null || tasks.length == 0)
             return maxSlots;
+        //building array where starts are +1, ends are -1. For instance tasks = {{7, 10}, {2,4}} becomes endpoints {{7, 1}, {10, -1}, {2, 1}, {4, -1}}
         int[][] endpoints = new int[tasks.length * 2][2];
         for (int i = 0, j = 0; i < tasks.length; i++) {
             endpoints[j][0] = tasks[i][0];
@@ -70,17 +71,17 @@ public class OverlappingTasks {
             public int compare(int[] o1, int[] o2) {
                 return o1[0] - o2[0];
             }
-        });
+        });// {{2, 1}, {4, -1}, {7, 1}, {10, -1}}
         int curSlots = 0;
         for (int i = 0; i < endpoints.length; i++) {
             curSlots += endpoints[i][1];
-            maxSlots = Math.max(curSlots, maxSlots);
+            maxSlots = Math.max(curSlots, maxSlots);//watermark, i.e. recording the highest point curSlots will ever rich
         }
         return maxSlots;
     }
 
     /*
-    with streams
+    with streams (same logic as above)
      */
     static int maxSlots = 0;
     static int curSlots = 0;

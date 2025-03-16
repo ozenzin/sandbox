@@ -23,15 +23,15 @@ public class FindKLargest {
     }
 
     private static int findKLargestIn(int K, int[] nums) {
-        int left = 0, right = nums.length -1, result = Integer.MIN_VALUE;
+        int start = 0, end = nums.length -1, result = Integer.MIN_VALUE;
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        while (left <= right) {
-            int randomPivotIndx = random.nextInt( right - left + 1) + left;
-            int sortedOutPivotIndx = pivotize(nums, randomPivotIndx, left, right);
+        while (start <= end) {
+            int randomPivotIndx = random.nextInt( end - start + 1) + start;
+            int sortedOutPivotIndx = pivotize(nums, randomPivotIndx, start, end);
             if (nums.length - K > sortedOutPivotIndx)
-                left = sortedOutPivotIndx + 1;
+                start = sortedOutPivotIndx + 1;
             else if (nums.length - K < sortedOutPivotIndx)
-                right = sortedOutPivotIndx -1;
+                end = sortedOutPivotIndx -1;
             else {
                 result = nums[sortedOutPivotIndx];
                 break;
@@ -40,18 +40,18 @@ public class FindKLargest {
         return result;
     }
 
-    private static int pivotize(int[] nums, int randomPivotIndx, int left, int right) {
+    private static int pivotize(int[] nums, int randomPivotIndx, int start, int end) {
         int pivot = nums[randomPivotIndx];
-        swap(nums, randomPivotIndx, right);
-        int tmpPivotPosition = right;
-        while (left < right) {
-            if (nums[left] < pivot)
-                left++;
+        swap(nums, randomPivotIndx, end);
+        int tmpPivotPosition = end;
+        while (start < end) {
+            if (nums[start] < pivot)
+                start++;
             else
-                swap(nums, left, --right);
+                swap(nums, start, --end);
         }
-        swap(nums, left, tmpPivotPosition);
-        return left;
+        swap(nums, start, tmpPivotPosition);
+        return start;
     }
 
     public static void swap(int[] nums, int from, int to) {
