@@ -31,7 +31,7 @@ public class FirstBadVirsionTest {
         We can zero on first bad version from the left or from the right, depending on given numbers (odd vs even) of
         the lastV and badV. Hence the following assertion should take that into account. 
          */
-        assertEquals(badV, isBadVersion(lr[0]) ? lr[0] : ++lr[0] );
+        assertEquals(badV, isBadVersion(lr[0]) ? lr[0] : lr[0] +1 );
         assertTrue(steps <= ceil(log(lastV) / log(2)));
     } 
     

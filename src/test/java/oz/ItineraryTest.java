@@ -35,7 +35,7 @@ public class ItineraryTest {
 
         Map<String, String> starts2ends = Arrays.stream(flights).collect(
                 HashMap::new,
-                (map, fl) -> map.put(fl[0], fl[1]),
+                (map, flight) -> map.put(flight[0], flight[1]),
                 HashMap::putAll);
 
         LinkedList<String> itinerary = new LinkedList<>();
